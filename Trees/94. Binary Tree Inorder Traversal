@@ -1,0 +1,32 @@
+//https://repl.it/repls/FreeElementaryEngineer
+class Solution {
+    List<Integer> lst = new ArrayList<>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+        //Recursive
+//         if(root==null)
+//             return Collections.emptyList();
+        
+//         if(root.left!=null)
+//             inorderTraversal(root.left);
+//         if(root!=null)
+//             lst.add(root.val);
+//         if(root.right!=null)
+//             inorderTraversal(root.right);
+        
+//         return lst;
+        
+        //Iterative
+        Stack<TreeNode> stk = new Stack<>();
+        while(root != null || !stk.isEmpty()){
+            if(root!=null){
+                stk.add(root);
+                root = root.left;
+            } else{
+                root = stk.pop();
+                lst.add(root.val);
+                root = root.right;
+            }
+    }
+        return lst;
+}
+}

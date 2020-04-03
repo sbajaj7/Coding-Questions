@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isHappy(int n) {
+        if(n<=0)
+            return false;
+        Set<Integer> cache = new HashSet<>();
+        int sum = 0;
+        while(n>0){
+            int digit = n%10;
+            sum +=digit*digit;
+            n = n/10;
+            if(n == 0){
+                if(sum == 1)
+                    return true;
+                n = sum;
+                if(!cache.contains(sum))
+                    cache.add(sum);
+                else
+                    return false;
+                sum = 0;
+            }
+        }
+        return false;
+    }
+}

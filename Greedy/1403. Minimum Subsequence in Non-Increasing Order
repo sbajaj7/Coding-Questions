@@ -1,0 +1,19 @@
+class Solution {
+    public List<Integer> minSubsequence(int[] nums) {
+        int totalSum = 0;
+        int curSum = 0;
+        for(int num: nums)
+            totalSum += num;
+        
+        Arrays.sort(nums);
+        List<Integer> res = new ArrayList<>();
+        for(int i = nums.length-1;i>=0;i--){
+            totalSum -= nums[i];
+            curSum += nums[i];
+            res.add(nums[i]);
+               if(curSum>totalSum)
+                   return res;
+        }
+        return res;
+    }
+}

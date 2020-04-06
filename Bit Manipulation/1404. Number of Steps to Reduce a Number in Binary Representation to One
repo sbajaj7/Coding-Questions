@@ -1,0 +1,21 @@
+The reason we are using the BigInteger class here is that when we try to convert a long binary string to any primitive data types like this:
+
+int num = Integer.parseInt(s, 2);
+We get a NumberFormatException when we call the parseInt method as the result is greater than Integer.MAX_VALUE. However, this isn't a problem (for the given maximum length of string) when we use the BigInteger class as according to JavaDocs "BigInteger must support values in the range -2 ^ Integer.MAXVALUE (exclusive) to +2 ^ Integer.MAXVALUE (exclusive) and may support values outside of that range".
+
+class Solution {
+    public int numSteps(String s) {
+        BigInteger num = new BigInteger(s, 2);
+        
+        int steps = 0;
+        
+        while(num.compareTo(BigInteger.ONE) != 0){
+            if(num.mod(new BigInteger("2")).equals(BigInteger.ZERO))
+                num = num.divide(new BigInteger("2"));
+            else
+                num = num.add(BigInteger.ONE);
+            steps++;
+        }
+        return steps;
+    }
+}

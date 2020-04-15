@@ -1,0 +1,23 @@
+class Solution {
+    public String stringShift(String s, int[][] shift) {
+
+        int len = s.length();
+        int shiftCount = 0;
+        for(int row[]: shift){
+            if(row[0] == 0) shiftCount -= row[1];
+            else shiftCount += row[1];
+        }
+
+        int amount = shiftCount;
+        if(shiftCount <0){
+            amount *= -1;
+            amount %= len;
+            s = s.substring(amount,len) + s.substring(0,amount);
+        }else if(shiftCount > 0){
+            amount %= len;
+            s = s.substring(len-amount,len) + s.substring(0,len-amount);
+        }
+            
+        return s;
+    }
+}

@@ -1,0 +1,29 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] leftProduct = new int[len];
+        int[] rightProduct = new int[len];
+        int leftP = 1, rightP = 1;
+        
+        leftProduct[0] = leftP;
+        for(int i = 1;i<len;i++){
+            leftP = nums[i-1] * leftP;
+            leftProduct[i] = leftP;
+        }
+        
+        rightProduct[len-1] = rightP;
+        for(int j = len-2;j>=0;j--){
+            rightP = nums[j+1] * rightP;
+            rightProduct[j] = rightP;
+        }
+        
+        //System.out.println(Arrays.toString(leftProduct));
+        //System.out.println(Arrays.toString(rightProduct));
+        
+        for(int k = 0;k<len;k++){
+            nums[k] = leftProduct[k] * rightProduct[k];
+        }
+        
+        return nums;
+    }
+}

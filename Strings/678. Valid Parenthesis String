@@ -1,0 +1,28 @@
+class Solution {
+    public boolean checkValidString(String s) {
+       
+        int count = 0;
+        //Going through this loop confirms that the number of 
+        //right parenthesis are not more than left parenthesis
+        for(char c: s.toCharArray()){
+            if(c == '(' || c == '*')
+                count++;
+            else if(count-- == 0)
+                return false;
+        }
+        if(count == 0)
+            return true;
+        
+        count = 0;
+        //Going through this loop confirms that the number of 
+        //left parenthesis are not more than right parenthesis
+        for(int i = s.length()-1;i>=0;i--){
+            char c = s.charAt(i);
+            if(c == ')' || c == '*')
+                count++;
+            else if(count-- == 0)
+                return false;
+        }
+        return true;
+    }
+}

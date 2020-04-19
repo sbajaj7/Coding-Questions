@@ -1,0 +1,40 @@
+class Solution {
+    public String reformat(String s) {
+        
+        StringBuilder result = new StringBuilder("");
+        boolean isLetter = false;
+        
+        List<Character> letters = new ArrayList<>();
+        List<Character> digits = new ArrayList<>();
+        for(char c:s.toCharArray()){
+            if(c >= 97 && c<=122){
+                letters.add(c);
+            } else
+                digits.add(c);
+        }
+                 
+        if(letters.size()>digits.size())
+            isLetter = true;
+        
+        while(letters.size() > 0 && digits.size() > 0){
+            
+            if(isLetter){
+                result.append(letters.remove(0));
+                result.append(digits.remove(0));
+            } else{
+                result.append(digits.remove(0));
+                result.append(letters.remove(0));
+            }
+        }
+        
+        if(letters.size() > 1 || digits.size() > 1)
+            return "";
+        else if (letters.size() == 1)
+            result.append(letters.remove(0));
+        else if(digits.size() == 1)
+            result.append(digits.remove(0));
+        
+        
+        return result.toString();
+    }
+}

@@ -1,0 +1,18 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        
+        int maxReachableIndex = 0;
+        
+        for(int i = 0;i<nums.length;i++){
+            //We return false whenever we realize that we cannot reach index i
+            if(i>maxReachableIndex)
+                return false;
+            maxReachableIndex = Math.max(maxReachableIndex, i+nums[i]);
+            //We return true whenever we realize that the 
+            //maxReachableIndex is atleast now equal to the last index in the array
+            if(maxReachableIndex >= nums.length-1)
+                return true;
+        }
+        return true;
+    }
+}

@@ -1,19 +1,21 @@
-public int maximalSquare(char[][] matrix) {
+    public int maximalSquare(char[][] matrix) {
         if(matrix.length == 0)
             return 0;
+        
         int maxSquare = 0;
         
         int rows = matrix.length;
         int cols = matrix[0].length;
-        //Grid represents the length of the square which lower right corner is located at (i, j).
-        int grid[][] = new int[rows+1][cols+1];
-        for(int i = 1; i<=rows;i++){
-            for(int j = 1; j<=cols;j++){
-                if(matrix[i-1][j-1] == '1'){
-                    grid[i][j] = Math.min(Math.min(grid[i][j-1], grid[i-1][j]), grid[i-1][j-1]) + 1;
-                    maxSquare = Math.max(grid[i][j],maxSquare);
+
+        for(int i = 0; i<rows;i++){
+            for(int j = 0; j<cols;j++){
+                if(matrix[i][j] == '1' && i != 0 && j != 0)
+                    matrix[i][j] = (char)(Math.min(Math.min(matrix[i][j-1]-'0', matrix[i-1][j]-'0')
+                                            , matrix[i-1][j-1]-'0') + 1 + '0');
+                
+                
+                    maxSquare = Math.max(matrix[i][j]-'0',maxSquare);
                 }
             }
-        }
         return maxSquare*maxSquare;
     }

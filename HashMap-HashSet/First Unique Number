@@ -1,0 +1,32 @@
+class FirstUnique {
+
+    Set<Integer> uniqueSet = new LinkedHashSet<>();
+    Set<Integer> allNums = new HashSet<>();
+    
+    public FirstUnique(int[] nums) {
+        for(int num: nums)
+            add(num);
+    }
+    
+    public int showFirstUnique() {
+        Iterator<Integer> setIterator = uniqueSet.iterator();
+        if(setIterator.hasNext())
+            return setIterator.next();
+        
+        return -1;
+    }
+    
+    public void add(int value) {
+        if(!allNums.add(value))
+            uniqueSet.remove(value);
+        else
+            uniqueSet.add(value);
+    }
+}
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * FirstUnique obj = new FirstUnique(nums);
+ * int param_1 = obj.showFirstUnique();
+ * obj.add(value);
+ */

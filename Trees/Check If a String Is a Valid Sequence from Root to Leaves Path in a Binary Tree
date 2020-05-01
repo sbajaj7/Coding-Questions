@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    boolean result;
+    int sequence[];
+    public boolean isValidSequence(TreeNode root, int[] arr) {
+        if(root == null)
+            return false;
+        
+        result = false;
+        sequence = arr;
+        if(root.val == sequence[0]){
+            if(isValid(1,root))
+                return result;
+        }
+        
+        return result;
+    }
+    
+    public boolean isValid(int index, TreeNode root){
+      if(index >= sequence.length && root.left == null && root.right == null){
+           result = true;
+           return true;
+      } else if(index >= sequence.length)
+          return false;
+        
+      boolean left = false;
+      boolean right = false;
+       
+      if(root.left!=null && sequence[index]==root.left.val)
+          left = isValid(index+1,root.left);
+
+      if(root.right!=null && sequence[index]==root.right.val)
+          right = isValid(index+1,root.right);
+       
+      return (left || right);
+    }
+}

@@ -1,0 +1,37 @@
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        
+        String res = "";
+        /*Map<String, Integer> freq = new HashMap<>();
+        for(List<String> route: paths){
+            String cityA = route.get(0);
+        
+            if(!freq.containsKey(cityA))
+                freq.put(cityA,1);
+            else
+                freq.put(cityA,freq.get(cityA) + 1);
+            
+            String cityB = route.get(1);
+            if(!freq.containsKey(cityB))
+                freq.put(cityB,2);
+            else
+                freq.put(cityB,freq.get(cityB) + 2);
+        }
+        
+        for(Map.Entry<String,Integer> mapE: freq.entrySet()){
+            if(mapE.getValue() == 2)
+                res = mapE.getKey();
+        }*/
+
+        Set<String> set = new HashSet<>();
+        for(List<String> row : paths){
+            set.add(row.get(0));
+        }
+        for(List<String> row : paths){
+            if(!set.contains(row.get(1))){
+                return row.get(1);
+            }
+        }
+        return res;
+    }
+}

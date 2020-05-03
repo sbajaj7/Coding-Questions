@@ -1,0 +1,16 @@
+class Solution {
+    public boolean kLengthApart(int[] nums, int k) {
+        
+        int index = Integer.MIN_VALUE;
+        for(int i = 0;i< nums.length; i++){
+            if(nums[i] == 1){
+                if(index != Integer.MIN_VALUE){
+                    if((i - index) <= k)
+                        return false;
+                } 
+                index = i;
+            }
+        }
+        return true;
+    }
+}

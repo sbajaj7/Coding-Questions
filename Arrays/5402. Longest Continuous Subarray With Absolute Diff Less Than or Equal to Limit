@@ -1,0 +1,23 @@
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        
+        int maxL = 0;
+        int start = 0;
+        TreeMap<Integer,Integer> treeM = new TreeMap<>();
+            
+        for(int i = 0;i<nums.length;i++){
+
+            treeM.put(nums[i], treeM.getOrDefault(nums[i],0) + 1);
+            
+            while(treeM.lastKey() - treeM.firstKey() > limit){
+                treeM.put(nums[start], treeM.get(nums[start]) - 1);
+                if(treeM.get(nums[start]) == 0)
+                    treeM.remove(nums[start]);
+                start++;
+            }
+            
+            maxL = Math.max(maxL,i-start+1);
+        }
+        return maxL;
+    }
+}

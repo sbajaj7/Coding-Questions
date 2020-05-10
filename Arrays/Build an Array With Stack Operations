@@ -1,0 +1,20 @@
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+        
+        List<String> res = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        for(int num: target)
+            set.add(num);
+        
+        for(int i = 1;i<=n;i++){
+            if(set.contains(i)){
+                res.add("Push");
+                set.remove(i);
+            } else if(set.size() > 0){
+                res.add("Push");
+                res.add("Pop");
+            }
+        }
+        return res;
+    }
+}

@@ -1,0 +1,37 @@
+class Solution {
+    public String removeKdigits(String num, int k) {
+        
+        if(num.length() <= k)
+            return new String("0");
+
+        Deque<Character> dq = new ArrayDeque<>();
+        
+        for(char c: num.toCharArray()){
+            
+            System.out.println(c + " " + dq.peekLast());
+            while(k>0 && !dq.isEmpty() && c<dq.peekLast()){
+                dq.pollLast();
+                k--;
+            }
+            dq.offerLast(c);
+        }
+        
+        while(k>0){
+            dq.pollLast();
+            k--;
+        }
+        
+        while(!dq.isEmpty() && dq.peekFirst() == '0')
+            dq.pollFirst();
+        
+        if(dq.isEmpty())
+            return "0";
+        
+        StringBuilder sb = new StringBuilder();
+        while(!dq.isEmpty()){
+            sb.append(dq.pollFirst());
+        }
+        
+        return sb.toString();
+    }
+}

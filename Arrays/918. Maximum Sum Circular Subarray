@@ -1,0 +1,36 @@
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+
+        int nonCircularMaxSum = kadaneMaxSum(A);
+
+        int totalSum = 0;
+        
+        //Inverting the signs of the array
+        for(int i = 0; i<A.length;i++){
+            totalSum += A[i];
+            A[i] *= -1;
+        }
+        
+        //The maxSum here actually gives the minSum when multiplied by -1 because we inverted the signs before 
+        int circularMinSum = kadaneMaxSum(A);
+        circularMinSum *= -1;
+        
+        int circularMaxSum = totalSum - circularMinSum;
+        //This happens when all the numbers are negative
+        if(circularMaxSum == 0)
+            return nonCircularMaxSum;
+        return Math.max(circularMaxSum,nonCircularMaxSum);
+    }
+    
+    public int kadaneMaxSum(int A[]){
+        int curSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        
+        for(int num: A){
+            curSum += num;
+            curSum = Math.max(num,curSum);
+            maxSum = Math.max(curSum,maxSum);
+        }
+        return maxSum;
+    }
+}

@@ -1,0 +1,28 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        final int len1 = s1.length();
+        final int len2 = s2.length();
+        if(len1>len2)
+            return false;
+        
+        int hash[] = new int[256];
+        for(char c: s1.toCharArray())
+            hash[c]++;
+        
+        int start = 0, end = 0, count = len1;
+        
+        while(end<len2){
+            if(hash[s2.charAt(end)] >= 1)
+                count--;
+            hash[s2.charAt(end)]--;
+            
+            if(count == 0)
+                return true;
+            else if((end - start + 1) == len1 && hash[s2.charAt(start++)]++ >= 0)
+                count++;
+            
+            end++;
+        }
+        return false;
+    }
+}

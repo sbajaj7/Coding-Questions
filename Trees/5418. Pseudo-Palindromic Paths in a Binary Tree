@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<String> paths = new ArrayList<>();
+    public int pseudoPalindromicPaths (TreeNode root) {
+        int result = 0;
+        
+        if(root == null)
+            return result;
+        
+        pseudoPalindromicPathsHelper(root, "");
+        
+        for(String path: paths){
+            if(canPermutePalindromeArrayHelper(path))
+                result++;
+        }
+        return result;
+    }
+    
+    public void pseudoPalindromicPathsHelper(TreeNode root, String curPath){
+        if(root == null)
+            return;
+        
+        curPath += root.val;
+        
+        if(root.left == null && root.right == null){
+            paths.add(curPath);
+            return;
+        }
+        pseudoPalindromicPathsHelper(root.left, curPath);
+        
+        pseudoPalindromicPathsHelper(root.right, curPath);
+    }
+    
+    public boolean canPermutePalindromeArrayHelper(String s) {
+     int hash[] = new int[256];
+        
+     for (char c: s.toCharArray())
+         hash[c]++;
+        
+     int count = 0;
+     for (int val: hash)
+         count += val % 2;
+         
+     return count <= 1;
+    }
+    
+    public boolean canPermuteMapPalindrome(String s) {
+     Map <Character, Integer> map = new HashMap < > ();
+        
+     for (int i = 0; i < s.length(); i++)
+         map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        
+     int count = 0;
+     for (char key: map.keySet())
+         count += map.get(key) % 2;
+         
+     return count <= 1;
+    }
+}

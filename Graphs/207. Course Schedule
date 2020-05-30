@@ -40,7 +40,7 @@ class Solution {
         if(map.containsKey(i)){
             for(int course: map.get(i)){
                 //System.out.println("Evaluating course: " + course);
-                if(!canFinishDFS(map, visited, course)){
+                if(!canFinishDFS(map, visited, course))
                     return false;
             }
         }

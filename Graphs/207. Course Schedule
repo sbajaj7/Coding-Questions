@@ -1,0 +1,49 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+    int len = prerequisites.length;
+ 
+    if(numCourses == 0 || len == 0){
+        return true;
+    }
+ 
+    //track visited courses
+    int[] visited = new int[numCourses];
+ 
+    // use the map to store what courses depend on a course 
+    Map<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
+    for(int[] courses: prerequisites){
+        if(!map.containsKey(courses[1]))
+            map.put(courses[1], new ArrayList<>().add(courses[0]));
+        else{
+            map.get(courses[1]).add(courses[0]);
+        }
+    }
+ 
+    for(int i=0; i<numCourses; i++){
+        if(!canFinishDFS(map, visited, i))
+            return false;
+    }
+ 
+    return true;
+}
+ 
+private boolean canFinishDFS(HashMap<Integer,ArrayList<Integer>> map, int[] visit, int i){
+    if(visit[i]==-1) 
+        return false;
+    if(visit[i]==1) 
+        return true;
+ 
+    visit[i]=-1;
+    if(map.containsKey(i)){
+        for(int j: map.get(i)){
+            if(!canFinishDFS(map, visit, j)) 
+                return false;
+        }
+    }
+ 
+    visit[i]=1;
+ 
+    return true;
+    }
+}

@@ -1,0 +1,35 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        //Arrays.sort(points,(p1,p2) -> p1[0]*p1[0] + p1[1]*p1[1] - p2[0]*p2[0] - p2[1]*p2[1]);
+        
+        /*
+        //M-1 Sorting the distance between all the points in ascending order 
+        Arrays.sort(points, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] p1, int[] p2) {
+                return p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1];
+            }
+        });
+
+        //returning the first K elements
+        return Arrays.copyOfRange(points,0,K);*/
+        
+        //We have built a max heap here using a priority queue construtor taking comparator as argument
+        PriorityQueue<int[]> pQueue = new PriorityQueue<>((p1,p2) -> p2[0]*p2[0] + p2[1]*p2[1] - 
+                                                p1[0]*p1[0] - p1[1]*p1[1]);
+        //We are iterating through all the points and adding them to the priority queue
+        for(int point[]: points){
+            pQueue.offer(point);
+            //Whenever the size of the priority queue becomes greater than K we remove the max element
+            if(pQueue.size()>K)
+                pQueue.poll();
+        }
+        
+        //We are iterating through the queue and adding all the K elements from the queue to the result array
+        int result[][] = new int[K][2];
+        while(!pQueue.isEmpty()){
+            result[--K] = pQueue.poll(); 
+        }
+        return result;
+    }
+}

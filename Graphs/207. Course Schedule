@@ -14,7 +14,7 @@ class Solution {
     Map<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
     for(int[] courses: prerequisites){
         if(!map.containsKey(courses[1]))
-            map.put(courses[1], new ArrayList<>().add(courses[0]));
+            map.put(courses[1], new ArrayList<Integer>(Arrays.asList(courses[0])));
         else{
             map.get(courses[1]).add(courses[0]);
         }
@@ -28,22 +28,25 @@ class Solution {
     return true;
 }
  
-private boolean canFinishDFS(HashMap<Integer,ArrayList<Integer>> map, int[] visit, int i){
-    if(visit[i]==-1) 
-        return false;
-    if(visit[i]==1) 
-        return true;
- 
-    visit[i]=-1;
-    if(map.containsKey(i)){
-        for(int j: map.get(i)){
-            if(!canFinishDFS(map, visit, j)) 
-                return false;
+    private boolean canFinishDFS(Map<Integer,ArrayList<Integer>> map, int[] visited, int i){
+        //System.out.println("Looping course: " + i);
+        if(visited[i] == -1) 
+            return false;
+
+        if(visited[i] == 1) 
+            return true;
+
+        visited[i] = -1;
+        if(map.containsKey(i)){
+            for(int course: map.get(i)){
+                //System.out.println("Evaluating course: " + course);
+                if(!canFinishDFS(map, visited, course)){
+                    return false;
+            }
         }
-    }
- 
-    visit[i]=1;
- 
-    return true;
+
+        visited[i] = 1;
+
+        return true;
     }
 }

@@ -1,0 +1,55 @@
+class Solution {
+    public int slidingPuzzle(int[][] board) {
+        
+        String target = "123450";
+        String start = "";
+        
+        for(int i = 0;i<board.length;i++){
+            for(int j = 0;j<board[i].length;j++){
+                start += board[i][j];
+            }
+        }
+        
+        //System.out.println(start);
+        
+        Queue<String> boardQ = new LinkedList<>();
+        Set<String> visitedS = new HashSet<>();
+        
+        boardQ.offer(start);
+        visitedS.add(start);
+        int moves = 0;
+        
+        int dirs[][] = new int [][]{{1,3},{0,2,4},{1,5},{0,4},{1,3,5},{2,4}};
+        
+        while(!boardQ.isEmpty()){
+            
+            int size = boardQ.size();
+            for(int i = 0; i< size ; i++){
+                String curS = boardQ.poll();
+
+                if(curS.equals(target))
+                    return moves;
+
+                int zeroI = curS.indexOf("0");
+
+                for(int dir:dirs[zeroI]){
+                    String permute = swap(curS,zeroI,dir);
+
+                    if(!visitedS.add(permute))
+                        continue;
+
+                    boardQ.offer(permute);
+                }
+            }
+            moves++;
+        }
+        return -1;
+    }
+    
+    public String swap(String input, int i, int j){
+        StringBuilder str = new StringBuilder(input);
+        str.setCharAt(i,input.charAt(j));
+        str.setCharAt(j,input.charAt(i));
+        return str.toString();
+    }
+}

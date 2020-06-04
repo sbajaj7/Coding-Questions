@@ -1,0 +1,23 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+		 return new Solution().computePivot(nums);
+    }
+    
+    public int computePivot(int arr[]){
+	    
+	    int arraySum = 0, prevSum = 0;
+	    
+	    for(int i: arr)
+	        arraySum += i;
+	        
+	    for(int i = 0;i<arr.length;i++){
+	        arraySum -= arr[i];
+	        
+	        if(arraySum == prevSum)
+	            return i;
+	           
+	        prevSum += arr[i];
+	    }
+	    return -1;
+	}
+}

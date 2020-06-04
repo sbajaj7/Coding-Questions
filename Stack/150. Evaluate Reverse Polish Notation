@@ -1,0 +1,31 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        
+        String operands = "+-*/";
+        Stack<String> operandStack = new Stack<>();
+        
+        for(String symbol: tokens){
+            
+            if(operands.contains(symbol)){
+                Integer opr2 = Integer.parseInt(operandStack.pop());
+                Integer opr1 = Integer.parseInt(operandStack.pop());
+                Integer result = new Integer(0);
+                    
+                if(symbol.equals("+"))
+                    result = opr1 + opr2;
+                else if(symbol.equals("*"))
+                    result = opr1 * opr2;
+                else if(symbol.equals("-"))
+                    result = opr1 - opr2;
+                else if(symbol.equals("/"))
+                    result = opr1 / opr2;
+                
+                operandStack.push(String.valueOf(result));
+                continue;
+            }
+            
+            operandStack.push(symbol);
+        }
+        return Integer.parseInt(operandStack.pop());
+    }
+}

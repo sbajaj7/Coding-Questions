@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int pointerS = 0, pointerT = 0;
+        
+        while(pointerS < s.length() && pointerT < t.length()){
+            if(s.charAt(pointerS) == t.charAt(pointerT)){
+                pointerS++;
+                pointerT++;
+            } else
+                pointerT++;
+        }
+        
+        //System.out.println(pointerS);
+        if(pointerS == s.length())
+            return true;
+        
+        return false;
+    }
+}

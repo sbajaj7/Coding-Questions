@@ -1,0 +1,51 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        //This solution is slow because of using a single hashset and concatenating string
+        /*Set<String> combinations = new HashSet<>();
+        
+        for(int i = 0;i<board.length;i++){
+            
+            for(int j = 0;j<board[0].length;j++){
+                
+                 String item = "(" + board[i][j] + ")";
+                
+                if(board[i][j] != '.')
+                   if(!combinations.add(item + i) || !combinations.add(j+item) || !combinations.add(i/3+item+j/3))
+                    return false;
+            }
+        }
+        
+        return true;*/
+        
+        //https://leetcode.com/problems/valid-sudoku/discuss/15450/Shared-my-concise-Java-code
+        //The comment on this link offers a good explaination of this question
+        
+        for(int i = 0; i < 9; i++){
+        
+        //We are resetting the hashsets here because when we move from one row, column or block to another we do not want the elements of the previous block already inside the hashmap.
+        HashSet<Character> rows = new HashSet<Character>();
+        HashSet<Character> columns = new HashSet<Character>();
+        HashSet<Character> cube = new HashSet<Character>();
+            
+        for (int j = 0; j < 9;j++){
+            
+            //This is check for unique elements in a row
+            if(board[i][j]!='.' && !rows.add(board[i][j]))
+                return false;
+            
+            //This is checking for unique elemts in a column
+            if(board[j][i]!='.' && !columns.add(board[j][i]))
+                return false;
+            
+            int RowIndex = 3*(i/3);
+            int ColIndex = 3*(i%3);
+            
+             //This is checking for unique elemts in a block
+            if(board[RowIndex + j/3][ColIndex + j%3]!='.' && !cube.add(board[RowIndex + j/3][ColIndex + j%3]))
+                return false;
+        }
+        }
+        return true;
+    }
+}

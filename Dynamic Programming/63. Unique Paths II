@@ -1,0 +1,39 @@
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        //int obstacleGrid[][] = new int[n][m];
+        
+        //int n = obstacleGrid.length;
+        int m = obstacleGrid[0].length;
+    
+        //System.out.print("n is " + n + " m is " +m);
+
+        // for(int row = 1;row<n;row++){
+        //     for(int col = 1;col<m;col++){
+        //         if(obstacleGrid[row][col] == 1)
+        //             obstacleGrid[row][col] = 0;
+        //         else
+        //             obstacleGrid[row][col] = obstacleGrid[row][col-1] + obstacleGrid[row-1][col-1];
+        //     }
+        // }
+        
+        //return obstacleGrid[n-1][m-1];
+        
+        int arr[] = new int[m];
+        
+        arr[0] = 1;
+        for(int row[] : obstacleGrid){
+            for(int col = 0;col<m;col++){
+                if(row[col] == 1)
+                    arr[col] = 0;
+                else if(col > 0)
+                    arr[col] += arr[col-1];
+            }
+        }
+        
+        // for(int i : arr){
+        //         System.out.print(i + " ");
+        // }
+        return arr[m-1];
+        
+    }
+}

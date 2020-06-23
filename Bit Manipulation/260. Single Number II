@@ -1,0 +1,37 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        //M-1
+        /*Map<Integer,Integer> freq = new HashMap<>();
+        
+        for(int num: nums)
+            freq.put(num,freq.getOrDefault(num,0)+1);
+        
+        for(Map.Entry<Integer,Integer> entry: freq.entrySet()){
+            if(entry.getValue() == 1)
+                return entry.getKey();
+        }
+        return 0;*/
+        
+        //M-2
+        //3 possible cases
+        //[2,2,2,4,4,4,5,6,6,6]
+        //[2,4,4,4,5,5,5]
+        //[2,2,2,4,4,4,6]
+        
+        if(nums.length == 1)
+            return nums[0];
+        
+        Arrays.sort(nums);
+        if(nums[0] != nums[1])
+            return nums[0];
+        else if(nums[nums.length-2] != nums[nums.length-1])
+            return nums[nums.length-1];
+        else{
+            for(int i = 1;i<nums.length;i=i+3){
+                if(nums[i-1] != nums[i])
+                    return nums[i-1];
+            }
+        }
+        return 0;
+    }
+}

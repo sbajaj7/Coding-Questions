@@ -1,0 +1,20 @@
+//https://www.youtube.com/watch?v=4s7r3bO0hoU
+
+class Solution {
+    public int numTrees(int n) {
+        
+        if(n<2)
+            return 1;
+        
+        int numBST[] = new int[n+1];
+        numBST[0] = 1;
+        numBST[1] = 1;
+        
+        for(int i = 2;i<=n;i++){
+            for(int j = 0;j<i;j++){
+                numBST[i] += numBST[j]*numBST[i-j-1];
+            }
+        }
+        return numBST[n];
+    }
+}

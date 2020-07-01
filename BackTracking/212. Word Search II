@@ -1,0 +1,72 @@
+class Trie{
+    
+    public Trie children[];
+    public boolean endOfWord;
+    
+    public Trie(){
+        children = new Trie[26];
+        endOfWord = false;
+    }
+    
+    public void insert(String word){
+        Trie node = this;
+        
+        for(char c: word.toCharArray()){
+            
+            if(node.children[c-'a'] == null)
+                node.children[c-'a'] = new Trie();
+            node = node.children[c-'a'];
+            
+        }
+        node.endOfWord = true;
+    }
+}
+
+class Solution {
+    public List<String> findWords(char[][] board, String[] words) {
+        
+        if(words == null || words.length == 0)
+            return Collections.emptyList();
+        
+        Trie trie = new Trie();
+        for(String word: words){
+            trie.insert(word);
+        }
+        
+        Set<String> resultSet = new HashSet<>();
+        for(int i = 0;i<board.length;i++){
+            for(int j = 0;j<board[i].length;j++){
+                DFSHelper(board,resultSet,i,j,trie,"");
+            }
+        }
+        
+        List<String> result = new ArrayList<>(resultSet);
+        return result;
+    }
+    
+    public void DFSHelper(char[][] board, Set<String> result, int i, int j, Trie trie, String cur){
+        
+        if(board[i][j] == '.')
+            return;
+        
+        char c = board[i][j];
+        board[i][j] = '.';
+        
+        Trie tNode = trie.children[c-'a'];
+        if(tNode != null){
+            cur += c;
+            if(tNode.endOfWord)
+                result.add(cur);
+            
+            if(i>0)
+                DFSHelper(board,result,i-1,j,tNode,cur);
+            if(j>0)
+                DFSHelper(board,result,i,j-1,tNode,cur);
+            if(i<board.length-1)
+                DFSHelper(board,result,i+1,j,tNode,cur);
+            if(j<board[i].length-1)
+                DFSHelper(board,result,i,j+1,tNode,cur);
+        }
+        board[i][j] = c;
+    }
+}

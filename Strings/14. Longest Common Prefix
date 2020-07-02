@@ -3,7 +3,7 @@ class Solution {
         if(strs.length == 0)
             return "";
         
-        int minL = Integer.MAX_VALUE;
+        /*int minL = Integer.MAX_VALUE;
         for(String word: strs)
             minL = Math.min(minL,word.length());
         
@@ -17,6 +17,21 @@ class Solution {
             }
             result += strs[j-1].charAt(i);
         }
-        return result;
+        return result;*/
+        
+        Arrays.sort(strs);
+        
+        char first[] = strs[0].toCharArray();
+        char last[] = strs[strs.length-1].toCharArray();
+        
+        StringBuilder res = new StringBuilder();
+        
+        for(int i = 0;i<first.length;i++){
+            if(last.length > i && first[i] == last[i])
+                res.append(first[i]);
+            else
+                return res.toString();
+        }
+        return res.toString();
     }
 }

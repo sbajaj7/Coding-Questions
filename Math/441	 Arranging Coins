@@ -1,0 +1,22 @@
+class Solution {
+    public int arrangeCoins(int n) {
+
+// M-1 This method will not run for big integer values
+//         int sum = 0, i = 0;
+        
+//         while(sum<n){
+//             sum += i;
+//             i++;
+//         }
+//         return sum == n ? i-1 : i-2;
+        
+        //https://www.youtube.com/watch?v=dIL-weWh8To
+        //M-2 This is an efficient solution and it runs for all integer values
+        long k = (long) Math.sqrt(2*(long)n);
+        long sum = k*(k+1)/2;
+        if(sum > n)
+            return (int)k-1;
+        
+        return (int)k;
+    }
+}

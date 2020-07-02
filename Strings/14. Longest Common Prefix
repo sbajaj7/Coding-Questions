@@ -2,6 +2,8 @@ class Solution {
     public String longestCommonPrefix(String[] strs) {
         if(strs.length == 0)
             return "";
+        else if(strs.length == 1)
+            return strs[0];
         
         /*int minL = Integer.MAX_VALUE;
         for(String word: strs)
@@ -26,8 +28,8 @@ class Solution {
         
         StringBuilder res = new StringBuilder();
         
-        for(int i = 0;i<first.length;i++){
-            if(last.length > i && first[i] == last[i])
+        for(int i = 0, j = 0;i<first.length && j<last.length;i++,j++){
+            if(first[i] == last[i])
                 res.append(first[i]);
             else
                 return res.toString();

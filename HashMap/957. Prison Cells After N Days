@@ -1,0 +1,30 @@
+class Solution {
+    public int[] prisonAfterNDays(int[] cells, int N) {
+        
+        Map<String,Integer> map = new HashMap();
+        
+        //int i = 0;;
+        //while(i<N){
+          for(int i = 0;i<N;i++){  
+            String key = Arrays.toString(cells);
+            if(map.containsKey(key)){
+                int loopL = i-map.get(key);
+                int remainingD = (N-i) % loopL;
+                return prisonAfterNDays(cells,remainingD);
+            } else{
+                map.put(key,i);
+                int prev = cells[0];
+                for(int j = 1;j<7;j++){
+                    int next = cells[j+1];
+                    int curr = cells[j];
+                    cells[j] = prev == next ? 1 : 0;
+                    //cells[j] = 1 - (prev ^ next); 
+                    prev = curr;
+                }
+            }
+            cells[0] = 0;
+            cells[7] = 0;
+        }
+        return cells;
+    }
+}

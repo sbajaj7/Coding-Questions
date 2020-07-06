@@ -1,8 +1,16 @@
 class Solution {
     public int hammingDistance(int x, int y) {
         int xorNum = x ^ y;
-        return Integer.bitCount(xorNum);
+        return countSetBitsRecursively(xorNum);
+        //return Integer.bitCount(xorNum);
         //return countSetBits(xorNum);
+    }
+    
+    public int countSetBitsRecursively(int num){
+        if(num == 0)
+            return 0;
+        
+        return (num%2) + countSetBitsRecursively(num>>1);
     }
     
     //Doesn't work for large input

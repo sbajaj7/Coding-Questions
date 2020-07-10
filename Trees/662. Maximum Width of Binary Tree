@@ -19,10 +19,10 @@ class Solution {
         if(root == null)
             return 0;
         
-        Deque<TreeNode> dq = new ArrayDeque<>();
+        Deque<TreeNode> dq = new LinkedList<>(); // initialize deque
         dq.add(root);
         
-        int max = 0;
+        int max = 1;
         
         while(!dq.isEmpty()){
             
@@ -32,23 +32,21 @@ class Solution {
             
             for(int i = 0;i<count;i++){
                 TreeNode node = dq.poll();
-                if(node.left != null)
-                    dq.offer(node.left);
-                else
-                    dq.offer(new TreeNode(Integer.MIN_VALUE,null,null));
                 
-                if(node.right != null)
-                    dq.offer(node.right);
-                else
-                    dq.offer(new TreeNode(Integer.MIN_VALUE,null,null));
-            
+                if (node == null) { // node was null then to maintain add both left and right as null
+                    dq.add(null);
+                    dq.add(null);
+                } else {
+                    dq.add(node.left);
+                    dq.add(node.right);
+                }
             }
             
-            while(!dq.isEmpty() && dq.peekFirst().val == Integer.MIN_VALUE){
+            while(!dq.isEmpty() && dq.peekFirst() == null){
                 dq.poll();
             }
             
-            while(!dq.isEmpty() && dq.peekLast().val == Integer.MIN_VALUE){
+            while(!dq.isEmpty() && dq.peekLast() == null){
                 dq.pollLast();
             }
         }

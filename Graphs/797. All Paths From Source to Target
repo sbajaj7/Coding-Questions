@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        
+        pathDFSHelper(graph,result,path,0);
+        return result;
+    }
+    
+    public void pathDFSHelper(int[][] graph, List<List<Integer>> result, List<Integer> path, int index){
+        
+        path.add(index);
+        
+        if(index == graph.length - 1)
+            result.add(new ArrayList<>(path));
+        else {
+            for(int num: graph[index])
+                pathDFSHelper(graph, result,path,num);
+        }
+        path.remove(path.size()-1);
+    }
+}

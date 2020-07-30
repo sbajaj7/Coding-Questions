@@ -1,0 +1,78 @@
+class Solution {
+    int cooldown = 1;
+    //Map<Integer, Integer> maxCache;
+    int[] maxArray;
+    public int maxProfit(int[] prices) {
+        
+        if(prices.length == 0)
+            return 0;
+        
+        //maxCache = new HashMap<>();
+        //maxArray = new int[prices.length];
+        //maxProfitHelper(prices, 0);
+        return maxProfitDP(prices);
+        //return maxCache.get(0);
+        //return maxArray[0];
+    }
+    
+    public int maxProfitHelper(int[] prices, int index){
+     
+        if(index >= prices.length)
+            return 0;
+        
+        System.out.println("MaxProfit called for index " + index + " and the current value is: " + maxArray[index]);
+        
+        // if(maxCache.getOrDefault(index, -1) != -1)
+        //     return maxCache.get(index);
+        
+        if(maxArray[index] != 0){
+            //System.out.println("MaxProfit called for index " + index + " and value returned is: " + maxArray[index]);
+            return maxArray[index];
+        }
+        
+        int curMax = 0;
+        
+        for(int sell = index + 1;sell<prices.length;sell++){
+            int tempDiff = prices[sell]-prices[index]+maxProfitHelper(prices, sell+cooldown+1);
+            if(tempDiff>curMax)
+                curMax = tempDiff;
+        }
+        
+        int currentNoBuyMax = maxProfitHelper(prices,index+1);
+        
+        int maxDiff = Math.max(curMax, currentNoBuyMax);
+        
+        //maxCache.put(index,maxDiff);
+        maxArray[index] = maxDiff;
+            
+        return maxDiff;
+    }
+    
+    public int maxProfitDP(int[] prices)
+   {
+       int n = prices.length;
+       int dp[][] = new int[n][2];
+       
+       if(n<2)
+           return 0;
+       
+       //base cases
+       dp[0][0] = 0;
+       dp[0][1] = -prices[0];
+       dp[1][0] = Math.max(0,dp[0][1] + prices[1]);
+       dp[1][1] = Math.max(dp[0][1], -prices[1]);
+       
+       for(int i=2;i<n;i++)
+       {
+           //Recurrence
+           dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+           
+           //including cool down
+           dp[i][1] = Math.max(dp[i-1][1], dp[i-2][0] - prices[i]);
+       }
+       
+       return dp[n-1][0];
+       
+       
+   }
+}

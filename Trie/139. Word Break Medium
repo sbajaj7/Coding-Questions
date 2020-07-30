@@ -1,0 +1,55 @@
+class Solution {
+    TrieNode root;
+    public boolean wordBreak(String s, List<String> wordDict) {
+        
+        root = new TrieNode();
+        for(String word: wordDict)
+            insert(word);
+        
+        return wordBreak(s, 0, root, new boolean[s.length()]);
+    }
+    
+    private boolean wordBreak(String s, int index, TrieNode cur, boolean[] visited) {
+        if (index == s.length())
+            return cur.isEnd;
+
+        int ch = s.charAt(index) - 'a';
+        TrieNode next = cur.childNodes[ch];
+
+        if (next == null)
+            return false;
+
+        if (next.isEnd && !visited[index]) {
+            visited[index] = true;
+            return wordBreak(s, index + 1, next, visited) ||
+                wordBreak(s, index + 1, root, visited);
+        }
+        return wordBreak(s, index + 1, next, visited);
+    }
+       
+     /** Inserts a word into the trie. */
+    public void insert(String word) {
+        
+        TrieNode curNode = root;
+        for(int i = 0;i<word.length();i++){
+            char c =  word.charAt(i);
+            TrieNode nextNode = curNode.childNodes[c-'a'];
+            if(nextNode == null){
+                nextNode = new TrieNode();
+                curNode.childNodes[c-'a'] = nextNode;
+            }
+            curNode = nextNode;
+        }
+        curNode.isEnd = true;
+    }
+    
+    class TrieNode{
+        boolean isEnd;
+        TrieNode childNodes[];
+
+        public TrieNode(){
+            isEnd = false;
+            childNodes = new TrieNode[26];
+        }
+    }
+}

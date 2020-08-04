@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        if(s.length() == 0)
+            return true;
+        
+        String possibilities = "abcdefghijklmnopqrstuvwxyz0123456789";
+        s = s.toLowerCase();
+        int start = 0;
+        int end = s.length()-1;
+        
+        while(start<end){
+            if(possibilities.indexOf(s.charAt(start)) == -1){
+                start++;
+                continue;
+            }
+            if(possibilities.indexOf(s.charAt(end)) == -1){
+                end--;
+                continue;
+            }
+            if(s.charAt(start) != s.charAt(end))
+                return false;
+            start++;
+            end--;
+        }
+        return true;
+    }
+}

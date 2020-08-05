@@ -1,5 +1,6 @@
 class Solution {
     public boolean isPowerOfFour(int num) {
+        /*M-1
         if(num<=0)
             return false;
         
@@ -7,5 +8,8 @@ class Solution {
             num /= 4;
         
         return num == 1;
+        */
+        
+        return (num > 0) && (num & (num-1)) == 0 && (num % 3) == 1;
     }
 }

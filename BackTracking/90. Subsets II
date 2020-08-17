@@ -1,0 +1,35 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        new Solution().helperBacktracking(nums, res, new ArrayList(), 0);
+        
+        return res;
+    }
+    public void helperDoubleRecursion(int[] nums, List<List<Integer>> res, ArrayList cur, int index){
+        if(nums.length == index){
+            for(List<Integer> item: res){
+            if(item.equals(cur))
+                return;
+            }
+            res.add(cur);
+            return;
+        }
+
+        helperDoubleRecursion(nums,res,cur,index+1);
+        ArrayList<Integer> temp = new ArrayList(cur);
+        temp.add(nums[index]);
+        helperDoubleRecursion(nums,res,temp,index+1);
+    }
+    public void helperBacktracking(int[] nums, List<List<Integer>> res, ArrayList cur, int index){
+        res.add(new ArrayList(cur));
+        
+        for(int i = index;i<nums.length;i++){
+            if(i>index && nums[i] == nums[i-1]) continue;
+            cur.add(nums[i]);
+            helperBacktracking(nums,res,cur,i+1);
+            cur.remove(cur.size()-1);
+        }
+    }
+}

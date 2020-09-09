@@ -14,11 +14,9 @@
  * }
  */
 class Solution {
-    List<String> paths;
     int sum = 0;
     public int sumRootToLeaf(TreeNode root) {
         
-        paths = new ArrayList<>();
         sumRootToLeafHelper(root,"");
         return sum;
     }

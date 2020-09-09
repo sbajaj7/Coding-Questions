@@ -15,14 +15,11 @@
  */
 class Solution {
     List<String> paths;
+    int sum = 0;
     public int sumRootToLeaf(TreeNode root) {
         
         paths = new ArrayList<>();
         sumRootToLeafHelper(root,"");
-        int sum = 0;
-        for(String path: paths){
-            sum += Integer.parseInt(path,2);
-        }
         return sum;
     }
     private void sumRootToLeafHelper(TreeNode root, String path){
@@ -31,7 +28,7 @@ class Solution {
         
         path += root.val;
         if(root.left == null && root.right == null){
-            paths.add(path);
+            sum += Integer.parseInt(path,2);
             return;
         }
         

@@ -8,9 +8,7 @@ class Solution {
     }
     
     private void combinationSum2Helper(int candidates[], int target, int index, int sum, ArrayList<Integer> cur, List<List<Integer>> res){
-        if(sum > target)
-            return;
-        else if(sum == target){
+        if(sum == target){
             res.add(new ArrayList<>(cur));
             return;
         }
@@ -18,6 +16,7 @@ class Solution {
         for(int i = index;i<candidates.length;i++){
             if(i > index && candidates[i] == candidates[i-1]) continue;
             sum += candidates[i];
+            if(sum > target) break;
             cur.add(candidates[i]);
             combinationSum2Helper(candidates,target,i+1,sum,cur,res);
             cur.remove(cur.size()-1);

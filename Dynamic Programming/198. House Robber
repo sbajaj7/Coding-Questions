@@ -1,0 +1,20 @@
+class Solution {
+    Map<Integer, Integer> cache = new HashMap<>();
+    public int rob(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        int max = maxAmount(nums, nums.length-1);
+        return max;
+    }
+    public int maxAmount(int nums[],int i){
+        if(i <0)
+            return 0;
+        
+        if(cache.containsKey(i))
+            return cache.get(i);
+        
+        cache.put(i,Math.max(nums[i] + maxAmount(nums, i-2), maxAmount(nums, i-1)));
+        
+        return cache.get(i);
+    }
+}

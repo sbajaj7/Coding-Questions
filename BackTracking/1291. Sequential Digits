@@ -1,5 +1,5 @@
 class Solution {
-    public List<Integer> sequentialDigits(int low, int high) {
+    public List<Integer> sequentialDigits1(int low, int high) {
         int allSequences[] = {12,23,34,45,56,67,78,89,
                          123,234,345,456,567,678,789,
                          1234,2345,3456,4567,5678,6789,
@@ -19,4 +19,17 @@ class Solution {
         }
         return result;
     }
+    
+    public List<Integer> sequentialDigits2(int low, int high) {
+        List<Integer> result = new ArrayList();
+        String s = "123456789";
+        for(int l = 2; l <= s.length(); l++) {
+            for(int j = 0; j <= s.length() - l; j++) {
+                int num = Integer.parseInt(s.substring(j, j + l));
+                if(num > high) return result;
+                if(num >= low) result.add(num);
+            }
+        }
+        
+        return result;
 }
